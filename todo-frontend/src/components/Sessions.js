@@ -56,14 +56,18 @@ const Sessions = () => {
           <TableRow>
             <TableCell>IP Address</TableCell>
             <TableCell>Login Time</TableCell>
+            <TableCell>Logout Time</TableCell> 
           </TableRow>
         </TableHead>
         <TableBody>
           {sessions?.map((session) => (
             <TableRow key={session._id}>
               <TableCell>{session.ipAddress}</TableCell>
+              <TableCell>{new Date(session.loginTime).toLocaleString()}</TableCell>
               <TableCell>
-                {new Date(session.loginTime).toLocaleString()}
+                {session.logoutTime
+                  ? new Date(session.logoutTime).toLocaleString()
+                  : "Active"}
               </TableCell>
             </TableRow>
           ))}
