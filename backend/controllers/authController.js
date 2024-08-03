@@ -14,16 +14,25 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 exports.register = async (req, res) => {
   const { username, email, password } = req.body;
-  try {
-    const { error } = await supabase.auth.signUp({ username, email, password });
-    if (error) return res.status(400).json({ error: error.message });
 
+  try {
+    const { data, error: supabaseError } = await supabase.auth.signUp({ email, password });
+
+    if (supabaseError) {
+      return res.status(400).json({ error: supabaseError.message });
+    }
+
+    
     const hashedPassword = await bcrypt.hash(password, 10);
+
+  
     const user = new User({ username, email, password: hashedPassword });
     await user.save();
+
     res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error('Registration error:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
