@@ -9,7 +9,6 @@ const sessionRoutes = require('./routes/session');
 const app = express();
 
 const PORT = process.env.PORT || 8080;
-
 mongoose
   .connect("mongodb+srv://manoharbondalapati34:Y1JG1GM1MJMM9ubA@todocluster.0w1k4km.mongodb.net/?retryWrites=true&w=majority&appName=todocluster", {
     useNewUrlParser: true,
