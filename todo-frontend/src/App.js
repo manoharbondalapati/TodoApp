@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Register from "./components/Register";
+import Login from "./components/Login";
 
-function App() {
+import Todos from "./components/Todos";
+import TodoDetails from "./components/TodoDetails";
+import Sessions from "./components/Sessions";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/todos" element={<Todos />} />
+        <Route path="/todos/:id" element={<TodoDetails />} />
+        <Route path="/sessions" element={<Sessions />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
