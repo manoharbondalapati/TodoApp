@@ -1,4 +1,4 @@
-const Session = require('../models/session');
+const Session = require("../models/session");
 
 exports.getSessions = async (req, res) => {
   try {
@@ -8,4 +8,3 @@ exports.getSessions = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
