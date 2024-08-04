@@ -107,11 +107,13 @@ export const updateTodo = (id, todoData) => async (dispatch) => {
   try {
     const response = await api.put(`/todos/${id}`, todoData);
     dispatch(updateTodoSuccess(response.data));
+    dispatch(fetchTodos());
     message.success("Todo Updated Successfully");
   } catch (error) {
-    console.error("Failed to update todo:", error.message);
+    message.error("Failed to update todo. Please try again.");
   }
 };
+
 
 export const deleteTodo = (id) => async (dispatch) => {
   try {

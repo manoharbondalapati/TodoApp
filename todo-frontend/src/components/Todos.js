@@ -29,14 +29,14 @@ const Todos = () => {
 
   const todos = useSelector((state) => state.todos.todos);
   const username = localStorage.getItem("username");
-  console.log(username);
+  const [loading, setLoading] = useState(true);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [editTodo, setEditTodo] = useState(null);
   const [todoData, setTodoData] = useState({ title: "", description: "" });
 
   useEffect(() => {
-    dispatch(fetchTodos());
+    dispatch(fetchTodos()).finally(() => setLoading(false));
   }, [dispatch]);
 
   const handleCreateTodo = () => {
@@ -100,8 +100,21 @@ const Todos = () => {
         >
           Create Todo
         </Button>
-        {todos.length === 0 ? (
-          <Typography>No todos for you</Typography>
+        {loading ? (
+          <Typography>Loading...</Typography>
+        ) : todos.length === 0 ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "50vh",
+            }}
+          >
+            <Typography variant="h6" sx={{ fontSize: "24px" }}>
+              No todos for you
+            </Typography>
+          </Box>
         ) : (
           <Table>
             <TableHead>
